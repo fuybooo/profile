@@ -1,0 +1,9 @@
+/* header start */
+.header .nav-link {
+    color: #222;
+}
+.header .nav-link:hover,
+.header .nav-link.active {
+    color: #007bff;
+}
+/* header end */
