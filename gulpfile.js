@@ -9,16 +9,16 @@ const minifyHtml = require('gulp-minify-html');
 
 gulp.task('css', function() {
     return domSrc({file:'index.html',selector:'link',attribute:'href'})
-        .pipe(concat('app.full.min.css'))
+        .pipe(concat('app.min.css'))
         .pipe(cssmin())
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('build/'));
 });
 
 gulp.task('js', function() {
     return domSrc({file:'index.html',selector:'script',attribute:'src'})
-        .pipe(concat('app.full.min.js'))
+        .pipe(concat('app.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('build/'));
 });
 
 gulp.task('indexHtml', function() {
@@ -26,17 +26,17 @@ gulp.task('indexHtml', function() {
         .pipe(cheerio(function ($) {
             $('script').remove();
             $('link').remove();
-            $('body').append('<script src="app.full.min.js"></script>');
-            $('head').append('<link rel="stylesheet" href="app.full.min.css">');
+            $('body').append('<script src="app.min.js"></script>');
+            $('head').append('<link rel="stylesheet" href="app.min.css">');
         }))
         .pipe(minifyHtml())
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('build/'));
 });
 
 gulp.task('minifyImg', function() {
     return gulp.src('image/*')
         .pipe(imageMin())
-        .pipe(gulp.dest('dist/image'));
+        .pipe(gulp.dest('build/image'));
 });
 
 gulp.task('default', ['css', 'js', 'indexHtml', 'minifyImg']);
